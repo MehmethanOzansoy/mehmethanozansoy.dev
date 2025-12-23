@@ -1,2 +1,54 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+@layer components {
+
+    .background {
+        @apply fixed -z-[1] inset-0 w-screen h-screen min-h-screen;
+    }
+
+    .background::before {
+        @apply absolute inset-0 w-full h-full bg-gradient-to-b from-black/70 via-black/40 to-black/70;
+        content: "";
+        background: radial-gradient(
+            ellipse at center,
+            rgba(255,255,255,0.1) 0%,
+            rgba(255, 255, 255, 1) 100%
+        );
+
+        pointer-events: none;
+    }
+
+    .background::after {
+        @apply absolute inset-0 w-full h-full bg-no-repeat bg-center bg-cover;
+        content: "";
+        background-image: url("/images/background.jpg");
+        filter: blur(8px);
+        transform: scale(1.1);
+
+        pointer-events: none;
+    }
+
+    .gradient-blur {
+        background: rgba(237, 117, 200, 1);
+        max-width: 800px;
+        background: coic-linear-gradient(
+            135deg,
+            rgba(65, 171, 77),
+            rgba(83,22,33),
+        );
+        width:  100%;
+        height: 100%;
+        filter: blur(100px);
+        position: absolute;
+        z-index: 3;
+        top: 20px;
+        left: 20%;
+        opacity: 0.2;
+        pointer-events: none;
+
+    }
+  
+}
