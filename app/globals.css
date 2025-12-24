@@ -3,52 +3,90 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-900: #071025;
+  --bg-800: #0b1220;
+  --accent: #64ffd6;
+  --accent-2: #6ee7b7;
+  --grid-color: rgba(255, 255, 255, 0.03);
+  --symbol-color: rgba(255, 255, 255, 0.06);
+}
+
+body {
+  background-color: var(--bg-900);
+  color: #dbeef7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+.dev-bg {
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--bg-800);
+  background-image: radial-gradient(
+      circle at 10% 10%,
+      rgba(100, 255, 214, 0.04),
+      transparent 12%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(110, 231, 183, 0.03),
+      transparent 18%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.012) 0 1px,
+      transparent 1px 18px
+    ),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45));
+  background-blend-mode: overlay, overlay, normal, multiply;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.dev-bg::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      to right,
+      var(--grid-color) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  transform-origin: center;
+  animation: gridShift 30s linear infinite;
+}
+
+.dev-bg::after {
+  content: "</>";
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+    monospace;
+  font-weight: 600;
+  font-size: 2.25rem;
+  color: var(--symbol-color);
+  letter-spacing: 0.06em;
+  transform: rotate(-12deg);
+  opacity: 0.9;
+  pointer-events: none;
+  filter: blur(0.2px);
+}
+
+@keyframes gridShift {
+  from {
+    transform: translate(0px, 0px) rotate(0deg) scale(1);
+  }
+  to {
+    transform: translate(-40px, -30px) rotate(0.2deg) scale(1.02);
+  }
+}
 @layer components {
-
-    .background {
-        @apply fixed -z-[1] inset-0 w-screen h-screen min-h-screen;
-    }
-
-    .background::before {
-        @apply absolute inset-0 w-full h-full bg-gradient-to-b from-black/70 via-black/40 to-black/70;
-        content: "";
-        background: radial-gradient(
-            ellipse at center,
-            rgba(255,255,255,0.1) 0%,
-            rgba(255, 255, 255, 1) 100%
-        );
-
-        pointer-events: none;
-    }
-
-    .background::after {
-        @apply absolute inset-0 w-full h-full bg-no-repeat bg-center bg-cover;
-        content: "";
-        background-image: url("/images/background.jpg");
-        filter: blur(8px);
-        transform: scale(1.1);
-
-        pointer-events: none;
-    }
-
-    .gradient-blur {
-        background: rgba(237, 117, 200, 1);
-        max-width: 800px;
-        background: coic-linear-gradient(
-            135deg,
-            rgba(65, 171, 77),
-            rgba(83,22,33),
-        );
-        width:  100%;
-        height: 100%;
-        filter: blur(100px);
-        position: absolute;
-        z-index: 3;
-        top: 20px;
-        left: 20%;
-        opacity: 0.2;
-        pointer-events: none;
-
-    }
-  
 }
